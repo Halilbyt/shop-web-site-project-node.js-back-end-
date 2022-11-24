@@ -27,8 +27,8 @@ app.get("/admin",productController.admin);
 // admin post request
 app.post("/admin",productController.adminPost);
 
-// categories
-app.get("/:categoryId",productController.getProductsByCategory)
+//contact page
+app.get("/contact",productController.getContact);
 
 // admin product edit
 app.get("/admin/:productId",productController.adminProductEdit);
@@ -39,16 +39,14 @@ app.post("/admin/:productId",productController.adminProductEditPost);
 //delete product
 app.post("/delete-product",productController.adminDeleteProduct);
 
-//contact page
-app.get("/contact",productController.getContact);
-
 //about page
 app.use("/about",productController.aboutUs);
 
+// categories
+app.get("/:categoryId",productController.getProductsByCategory)
+
 //error 404 page
 app.use(productController.get404page);
-
-
 
 //starting localhost on port 8000 :
 app.listen(8000,()=>{
