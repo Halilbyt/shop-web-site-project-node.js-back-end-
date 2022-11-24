@@ -1,0 +1,118 @@
+<%- include("partials/header") %>
+    <!--Main Area-->
+    <main id="main">
+        <div class="container-fluid">
+            <div class="row">
+              <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                  <ul class="nav flex-column">
+                    <li class="nav-item li-header">
+                        <span data-feather="home" class="span-header">Category</span>                       
+                    </li>
+                    <li class="nav-item li-phone">
+                     <%if(selectedCategory === "1"){%>
+                        <a class="nav-link" id="active" href="/<%= categories[0].id %>"><%= categories[0].name %></a>
+                     <%}%>
+                     <% if(selectedCategory!=="1") { %>
+                      <a class="nav-link" href="/<%= categories[0].id %>"><%= categories[0].name %></a>
+                     <% } %>
+                    </li>
+                    <li class="nav-item">
+                      <%if(selectedCategory === "2"){%>
+                        <a class="nav-link" id="active" href="/<%= categories[1].id %>"><%= categories[1].name %></a>
+                     <%}%>
+                     <% if(selectedCategory!=="2") { %>
+                      <a class="nav-link" href="/<%= categories[1].id %>"><%= categories[1].name %></a>
+                     <% } %>                     
+                    </li>
+                    <li class="nav-item">
+                      <%if(selectedCategory === "3"){%>
+                        <a class="nav-link" id="active" href="/<%= categories[2].id %>"><%= categories[2].name %></a>
+                     <%}%>
+                     <% if(selectedCategory!=="3") { %>
+                      <a class="nav-link" href="/<%= categories[2].id %>"><%= categories[2].name %></a>
+                     <% } %>
+                    </li>            
+                  </ul>
+                  
+         
+                </div>
+              </nav>
+        
+              <main id="home-main-area" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                
+                <div class="main-area">
+                    <div class="overlay-area" style="display:none;">
+                        <div class="overlay-content-area">
+                            <span id="close-btn" class="overlay-close-ptn">x</i></span>
+                            <div id="item-area">
+                                <div class="card" style="margin-top:2%;width: 60rem; height: 40rem;">
+                                    <img id="item-img" class="card-img-top" src="imgs/laptops/lenova_1.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                      <h5 id="item-title" class="card-title">Lenovo Ideapad Gaming </h5>
+                                      <p id="item-feature" class="card-text"> 15.6" FHD, AMD Ryzen 7 5800H, 16GB RAM, 512 GB SSD, NVIDIA GeForce GTX 1650 4GB, FreeDOS, 82K200JXTX</p>
+                                      <p id="item-price" class="card-text">15.764</p><button onclick="" style="position:absolute;bottom:0.5rem;padding-left:0.7rem;padding-right:0.7rem; text-align: center; margin:auto; right:42rem;" class="btn btn-primary"><i style="position:relative;padding-right:0.5rem;margin-top:2px;" class="fa-sharp fa-solid fa-cart-plus fa-md"></i>Add Cart</button>
+                                      
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% for(let i=0;i<items.length;i++){ %>
+                     <div class="card" style="position:relative;margin-top:2%;margin-left:1%;display:inline-block;width: 19rem; height: 31rem; padding:5px;">
+                        <img class="card-img-top" style="margin-top:1%; height:12rem;" src="imgs/laptops/<%= items[i].img %>" alt="Card image cap">
+                        <div class="card-body">
+                        <h5 class="card-title" style="color:#f60;font-weight:bold;"><%= items[i].brand %></h5>
+                        <p class="card-text" style="color:#333; padding:5px 3px;"><%= items[i].features%></p>
+                        <p class="card-text" style="color:#f70;position:absolute;bottom:35px;left:5.6rem; font-size: 1.8rem;" ><%= items[i].price%> <i style="vertical-align:middle;" class="fa-solid fa-turkish-lira-sign"></i></p>
+                        <a style="position:absolute;bottom:5px;padding-left:1rem;padding-right:1rem; text-align: center; margin:auto; left:2rem;" class="btn btn-warning">Check<p style="display:none;"><%= items[i].check %></p><i style="position:relative;padding-left:0.5rem;margin-top:2px;" class="fa-solid fa-up-right-and-down-left-from-center"></i></a>
+                        <button onclick="" style="position:absolute;bottom:5px;padding-left:0.7rem;padding-right:0.7rem; text-align: center; margin:auto; right:2rem;" class="btn btn-primary"><i style="position:relative;padding-right:0.5rem;margin-top:2px;" class="fa-sharp fa-solid fa-cart-plus fa-md"></i>Add Cart</button>
+                        
+                    </div>
+                     </div>
+                     <% } %>
+                </div> 
+             </main>
+
+            </div>
+        </div>        
+    </main>
+
+    <script>
+        const aTags = document.querySelectorAll("a");
+        for(let i=0;i<aTags.length;i++){
+            aTags[i].addEventListener("click",()=>{
+                const child = aTags[i].children[0];
+                const text = child.innerText;
+                console.log(text);
+                // make layout visible
+                const overLayElements = document.getElementsByClassName("overlay-area")[0];
+                overLayElements.style.display = "block";
+
+                // get price
+                const prevSib = aTags[i].previousElementSibling;
+                const itemPrice = prevSib.innerText;
+                document.getElementById("item-price").innerHTML=itemPrice+"<i style='vertical-align:middle;'' class='fa-solid fa-turkish-lira-sign'></i>";
+                // get feature name
+                const prevSib2 = prevSib.previousElementSibling;
+                const itemFeature = prevSib2.innerText;
+                document.getElementById("item-feature").innerText=itemFeature;
+                // get brand name
+                const prevSib3 = prevSib2.previousElementSibling;
+                const textBrand = prevSib3.innerText;
+                document.getElementById("item-title").innerText = textBrand;
+                // get img src
+                const prevSib4 = document.getElementById("item-img");
+                prevSib4.src = "imgs/laptops/"+text+".jpg"
+
+            })
+        }
+        
+        
+        document.getElementById("close-btn").addEventListener("click",()=>{
+            const overLayElements = document.getElementsByClassName("overlay-area")[0];
+            overLayElements.style.display = "none";
+        })
+    </script>
+<%- include("partials/footer") %>

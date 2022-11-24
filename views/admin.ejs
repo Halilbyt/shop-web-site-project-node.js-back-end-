@@ -1,0 +1,83 @@
+<%- include("partials/header") %>
+
+    <!--Main Area-->
+    <main id="main-admin-area">
+        <% if(action !== 'undefined' && action === 'edit'){ %>
+            <div class="alert alert-success" role="alert">
+                The product succesfuly updated!
+            </div>
+        <%}%>
+        <% if(action !== 'undefined' && action === 'delete'){ %>
+            <div class="alert alert-danger" role="alert">
+                The product succesfuly deleted!
+            </div>
+        <%}%>
+        <div class="adimin-restricted-area">
+            <div class="admin-header-left">
+                <h3 style="color:#f90">Add Product</h3>
+                <hr>
+            </div>
+            <form action="/admin" method="post">
+                <div class="form-group">
+                  <label for="productImage">Product Image</label>
+                  <input type="text" class="form-control" name="productImage" id="productImage" aria-describedby="productImageText" placeholder="Enter image name" required >
+                  <small id="productImageText" class="form-text text-muted" >Please enter the image full name including its extention</small>
+                </div>
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" class="form-control" name="productName" id="productName" aria-describedby="productNameText" placeholder="Enter product name" required >
+                    <small id="productNameText" class="form-text text-muted" >Please enter the product full name</small>
+                </div>
+                <div class="form-group">
+                    <label for="productFeatures">Product Features</label>
+                    <input type="text" class="form-control" name="productFeatures" id="productFeatures" aria-describedby="productFeatures" placeholder="Enter product features" required >
+                    <small id="productFeatures" class="form-text text-muted" >Please enter the product features</small>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Product Price</label>
+                    <input type="text" class="form-control" name="productPrice" id="productPrice" aria-describedby="productPrice" placeholder="Enter product price" required >
+                    <small id="productPrice" class="form-text text-muted" >Please enter the product price</small>
+                </div>
+                <div class="btn-submit">
+                    <button type="submit" class="btn btn-dark">Submit</button>
+                </div>                
+            </form>
+        </div>
+        <div class="adimin-restricted-area-right">
+            <div class="admin-header-left">
+                <h3 style="color:#f90">Product List</h3>
+                <hr>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th  style="text-align:center;vertical-align: middle; " scope="col">Product Id</th>
+                    <th  style="text-align:center;vertical-align: middle; " scope="col">Product Name</th>
+                    <th  style="text-align:center;vertical-align: middle; " scope="col">Product Feature</th>
+                    <th  style="text-align:center;vertical-align: middle; " scope="col">Product Price</th>
+                    <th style="text-align:center;vertical-align: middle; "  scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <% for(let i=0;i<items.length;i++){ %>
+                <tbody>
+                    <tr style="border-bottom:1px dotted #ccc">
+                      <th style="text-align:center;vertical-align: middle; " scope="row"><%= items[i].id %></th>
+                      <td style="text-align:center;vertical-align: middle;"><%= items[i].brand %></td>
+                      <td style="text-align:center;"><%= items[i].features %></td>
+                      <td style="text-align:center; vertical-align: middle;"><%= items[i].price %></td>
+                      <td style="position:relative;text-align: center;vertical-align: middle;">
+                        <form style ="position:relative;display:inline-block;margin-top:5px"; method="post" action="/delete-product">
+                            <input type="hidden" name="id" value="<%= items[i].id %>">
+                            <button style="position:relative;display:inline;" type="submit" class="btn btn-danger btn-xs"><i class="fa-solid fa-trash"></i></button>
+                        </form>
+                        <a  href="/admin/<%= items[i].id%>" style="position:relative;display:inline-block;margin-bottom:1.9rem;" class="btn btn-primary btn-xs"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <img style="position:relative;width:120px;height:80px;margin-top:7px" src="imgs/laptops/<%= items[i].img %>"alt="">
+                      </td>
+                    </tr> 
+                </tbody>
+                <% }%> 
+            </table>
+        </div>
+       
+    </main>
+<%- include("partials/footer") %>
