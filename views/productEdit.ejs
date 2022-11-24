@@ -22,7 +22,12 @@
                     <label for="productImage" style="color:#f90;" class="form-label">Product Image</label>
                     <input type="text" class="form-control" name="productImage" id="productImage" aria-describedby="productImageHelp" value="<%= product.img %>">
                     <div id="productImageHelp" class="form-text">Edit the product image with its full extensiton</div>
-                </div>        
+                </div>
+                <div class="mb-3" style="padding-top:2%;">
+                    <label for="productCategory" style="color:#f90;" class="form-label">Product Category</label>
+                    <input type="text" class="form-control" name="productImage" id="productCategory" aria-describedby="productCategoryHelp" value="<%= product.categoryId %>">
+                    <div id="productCategoryHelp" class="form-text">Edit the product image with its full extensiton</div>
+                </div>           
                 <button type="submit" style="position:relative;margin-left:40%; padding-left:2rem;padding-right: 2rem; text-align:center;" class="btn btn-warning">Submit</button>
             </form>
         </div>
