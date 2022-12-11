@@ -1,9 +1,22 @@
-const express       =   require("express");
-const path          =   require("path")
-const bodyParser    =   require("body-parser");
-const _             =   require("lodash");
-const app           =   express();
-const productController = require("./controller/products");
+const express           =   require("express");
+const path              =   require("path")
+const bodyParser        =   require("body-parser");
+const _                 =   require("lodash");
+const app               =   express();
+const productController =   require("./controller/products");
+const connection        =   require("./utility/database");
+
+// Database connection..
+connection.execute('SELECT * FROM products')
+.then((result) => {
+
+    console.log(result[0]);
+
+}).catch((err) => {
+
+    console.log("HATA! "+err);
+
+});
 
 // adding middlewares
 app.use(bodyParser.urlencoded({extended: true}));
